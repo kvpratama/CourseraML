@@ -62,23 +62,36 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+y_matrix = eye(num_labels)(y,:);
 
+a1 = [ones(m, 1) X];
 
+a2 = sigmoid(a1 * Theta1');
 
+a2 = [ones(m, 1) a2];
 
+a3 = sigmoid(a2 * Theta2');
 
+% J = (1 / m) * ( (-y)' * log(a3) - (1-y)' * log(1 - a3) );
 
+%for i=1:m
+    %costK(i,:) = (-y(i,:)) .* log(a3(i,:)) - (1-y(i,:)) .* log(1 - a3(i,:));
+    costJ = (-y_matrix) .* log(a3) - (1-y_matrix) .* log(1 - a3);
+    %costK(i,:) = y_matrix(i,:) .* a3(i,:);costK
+%end;
 
+sumCostJ = [sum(sum(costJ,2),1)];
 
+J = (1 / m) * sumCostJ;
 
+%Regularized Cost
 
+totTheta1 = [sum(sum(Theta1(:, 2:end).^2, 2),1)];
+totTheta2 = [sum(sum(Theta2(:, 2:end).^2, 2),1)];
 
+regularized = (lambda/(2*m)) * (totTheta1 + totTheta2);
 
-
-
-
-
-
+J = J + regularized;
 
 % -------------------------------------------------------------
 
