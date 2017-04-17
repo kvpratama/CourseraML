@@ -64,34 +64,58 @@ Theta2_grad = zeros(size(Theta2));
 
 y_matrix = eye(num_labels)(y,:);
 
+% Forward Propagation
 a1 = [ones(m, 1) X];
+z2 = a1 * Theta1';
 
-a2 = sigmoid(a1 * Theta1');
-
+a2 = sigmoid(z2);
 a2 = [ones(m, 1) a2];
 
-a3 = sigmoid(a2 * Theta2');
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+% Forward Propagation
 
 % J = (1 / m) * ( (-y)' * log(a3) - (1-y)' * log(1 - a3) );
-
 %for i=1:m
     %costK(i,:) = (-y(i,:)) .* log(a3(i,:)) - (1-y(i,:)) .* log(1 - a3(i,:));
-    costJ = (-y_matrix) .* log(a3) - (1-y_matrix) .* log(1 - a3);
+    %costJ = (-y_matrix) .* log(a3) - (1-y_matrix) .* log(1 - a3);
     %costK(i,:) = y_matrix(i,:) .* a3(i,:);costK
 %end;
 
+costJ = (-y_matrix) .* log(a3) - (1-y_matrix) .* log(1 - a3);
 sumCostJ = [sum(sum(costJ,2),1)];
 
 J = (1 / m) * sumCostJ;
 
 %Regularized Cost
-
 totTheta1 = [sum(sum(Theta1(:, 2:end).^2, 2),1)];
 totTheta2 = [sum(sum(Theta2(:, 2:end).^2, 2),1)];
 
 regularized = (lambda/(2*m)) * (totTheta1 + totTheta2);
 
 J = J + regularized;
+%Regularized Cost
+
+% Back Propagation
+% a1
+% a2
+% a3
+% z2
+
+d3 = a3 - y_matrix;
+
+for i=1:m
+  %d2(:,i) = Theta2(:,2:end)' * d3'(:,i) .* sigmoidGradient(z2'(:,i));
+  d2(i,:) = (Theta2(:,2:end)' * d3'(:,i))' .* sigmoidGradient(z2(i,:));
+end;
+
+D1 = d2' * a1;
+D2 = d3' * a2;
+
+Theta1_grad = D1 * 1/m;
+Theta2_grad = D2 * 1/m;
+% Back Propagation
+
 
 % -------------------------------------------------------------
 
