@@ -98,11 +98,14 @@ J = J + regularized;
 
 % Back Propagation
 d3 = a3 - y_matrix;
-
-for i=1:m
+%for i=1:m
   %d2(:,i) = Theta2(:,2:end)' * d3'(:,i) .* sigmoidGradient(z2'(:,i));
-  d2(i,:) = (Theta2(:,2:end)' * d3'(:,i))' .* sigmoidGradient(z2(i,:));
-end;
+  %d2(i,:) = (Theta2(:,2:end)' * d3'(:,i))' .* sigmoidGradient(z2(i,:));
+  %d3(:,i)
+  %Theta2(:,2:end)
+  %d2(i,:) = d3(:,i) * Theta2(:,2:end) .* sigmoidGradient(z2(i,:));
+  d2 = d3 * Theta2(:,2:end) .* sigmoidGradient(z2);
+%end;
 
 D1 = d2' * a1;
 D2 = d3' * a2;
