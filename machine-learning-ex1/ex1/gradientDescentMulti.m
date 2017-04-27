@@ -26,7 +26,11 @@ for iter = 1:num_iters
         
     %theta = tempTheta;
     
-    theta = theta - alpha * (1/m) * ((X * theta - y)' * X)';
+    %theta = theta - alpha * (1/m) * ((X * theta - y)' * X)';
+    h = X * theta;
+    error = h - y;
+    gradient = alpha * (1/m) * (X' * error);
+    theta = theta - gradient;
 
     % ============================================================
 
