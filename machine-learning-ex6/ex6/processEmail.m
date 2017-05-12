@@ -97,9 +97,17 @@ while ~isempty(email_contents)
     %       str2). It will return 1 only if the two strings are equivalent.
     %
 
+    % 'keyboard' command will bring into debugger mode where we can analyze variables
+    % keyboard
 
+    % for i = 1 : length(vocabList)
+    %   if(strcmp(vocabList{i}, str) == 1)
+    %     word_indices = [word_indices; i];
+    %   end
+    % end
 
-
+    match = strcmp(str, vocabList);
+    word_indices = [word_indices; find(match)];
 
 
 
