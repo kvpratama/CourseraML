@@ -20,7 +20,16 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
+m = size(X,1);
+dist = zeros(m, K);
 
+for i = 1 : K
+    d = bsxfun(@minus, X, centroids(i,:));
+    sqrError = sum(d.^2,2);
+    dist(:,i) = sum(d.^2,2);
+end
+
+[M,idx] = min(dist,[], 2);
 
 
 
