@@ -26,7 +26,7 @@ dist = zeros(m, K);
 for i = 1 : K
     d = bsxfun(@minus, X, centroids(i,:));
     sqrError = sum(d.^2,2);
-    dist(:,i) = sum(d.^2,2);
+    dist(:,i) = sqrError;
 end
 
 [M,idx] = min(dist,[], 2);
