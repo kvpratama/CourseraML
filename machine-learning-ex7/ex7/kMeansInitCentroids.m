@@ -15,8 +15,10 @@ centroids = zeros(K, size(X, 2));
 
 % Initialize the centroids to be random examples
 
+% Get unique value of X
+x_unique = unique(X, 'rows');
 % Randomly reorder the indices of examples
-randidx = randperm(size(X, 1));
+randidx = randperm(size(x_unique, 1));
 % Take the first K examples as centroids
 centroids = X(randidx(1:K), :);
 
