@@ -40,7 +40,13 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+predicted_rating = X * Theta';
 
+rating_error = Y - predicted_rating;
+
+error_factor = rating_error .* R;
+
+J = (1/2) * sum(sum(error_factor .^ 2));
 
 
 
