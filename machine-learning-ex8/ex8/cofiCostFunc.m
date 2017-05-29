@@ -51,15 +51,20 @@ J = (1/2) * sum(sum(error_factor .^ 2));
 X_grad = error_factor * Theta;
 Theta_grad = error_factor' * X;
 
+% -------------------------------------
+% Regularization of cost and gradient
 
+regularized_cost = ((lambda/2) * sum(sum( Theta .^ 2 ))) + ((lambda/2) * sum(sum( X .^ 2 )));
 
+regularized_X = lambda .* X;
+regularized_Theta = lambda .* Theta;
 
+% Regularized cost
+J = J + regularized_cost;
 
-
-
-
-
-
+% Regularized gradient
+X_grad = X_grad + regularized_X;
+Theta_grad = Theta_grad + regularized_Theta;
 
 % =============================================================
 
