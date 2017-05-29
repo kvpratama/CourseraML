@@ -42,14 +42,14 @@ Theta_grad = zeros(size(Theta));
 
 predicted_rating = X * Theta';
 
-rating_error = Y - predicted_rating;
+rating_error = predicted_rating - Y;
 
 error_factor = rating_error .* R;
 
 J = (1/2) * sum(sum(error_factor .^ 2));
 
-
-
+X_grad = error_factor * Theta;
+Theta_grad = error_factor' * X;
 
 
 
